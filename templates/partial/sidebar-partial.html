@@ -1,0 +1,136 @@
+{% load i18n %}
+<div id="megaMenuOverlay"></div>
+<div id="megaMenuContainer" class="col-lg-2 col-md-3 noPadding">
+	<nav class="sidebar-offcanvas">
+		<ul class="megaMenu">
+			<li class="closeMenu">
+				<a href="javascript:void(0);">
+					<span>{% trans 'Close' %}</span>
+					<i class="fIcon flaticon-cross31"></i>
+				</a>
+			</li>
+			{#			<li ng-repeat="menu in _sidebar_data">#}
+			{#				<a data-ng-class="menu.children.length>0 ? 'containsChild' : '' " href="[[menu.link]]">#}
+			{#					<i class="[[menu.iconClass]]"></i>#}
+			{#					<span>[[menu.title]]</span>#}
+			{#					<i data-ng-if="menu.children.length>0" class="fIcon flaticon-play106 showHideChild"></i>#}
+			{#				</a>#}
+			{#				<ul>#}
+			{#					<li data-ng-repeat="child in menu.children"><a ui-sref="[[child.state]]({'lang':lang})"><span>[[child.title]]</span></a></li>#}
+			{#				</ul>#}
+			{#			</li>#}
+			<!-- <li ui-sref-active="active">
+				<a href="#">
+					<span class="flaticon-home153">{% trans 'Home' %}</span>
+				</a>
+			</li> -->
+			<li data-ng-class="dashboardActive==true ? 'active' : ''">
+				<a class="containsChild" href="#">
+					<span ui-sref="dashboard({'lang':lang})" class="flaticon-notepad8">
+						{% trans 'Dashboard' %}
+					</span>
+				</a>
+			</li>
+			<li data-ng-class="customerActive==true ? 'active' : ''" data-ng-if="isAll || isProgramManager || isAdmin">
+				<a class="containsChild" href="#">
+					<span class="flaticon-silhouette121">{% trans 'Customers' %}</span>
+					<i data-ng-class="customerActive==true ? 'flaticon-arrow486' : 'flaticon-play106'" class="fIcon showHideChild"></i>
+				</a>
+				<ul class="displayNone">
+					<li data-ng-class="customerActiveChild1==true ? 'active' : ''">
+						<a ui-sref="management.active({'lang':lang})">
+							<span>{% trans 'Manage Customers' %}</span>
+						</a>
+					</li>
+					<li data-ng-class="customerActiveChild2==true ? 'active' : ''">
+						<a data-ng-click="navigateToCustomer()">
+							<span>{% trans 'Add New Customer' %}</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li data-ng-class="programActive==true ? 'active' : ''" data-ng-if="isAll || isProgramManager || isProjectManager || isAdmin">
+				<a href="#" class="containsChild" href="#">
+					<span class="flaticon-notepad8">{% trans 'Program' %}</span>
+					<i data-ng-class="programActive==true ? 'flaticon-arrow486' : 'flaticon-play106'" class="fIcon showHideChild"></i>
+				</a>
+				<ul class="displayNone">
+					<li data-ng-class="programActiveChild1==true ? 'active' : ''">
+						<a href="#" ui-sref="programManagement.active({'lang':lang})">
+							<span>{% trans 'Manage Programs' %}</span>
+						</a>
+					</li>
+					<li data-ng-class="programActiveChild2==true ? 'active' : ''">
+						<a href="#" data-ng-click="navigateToProgram()">
+							<span>{% trans 'Add New Program' %}</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li data-ng-class="projectActive==true ? 'active' : ''" data-ng-if="isAll || isProgramManager || isProjectManager || isAdmin">
+				<a class="containsChild" href="#">
+					<span class="flaticon-folder232">{% trans 'Projects' %}</span>
+					<i data-ng-class="projectActive==true ? 'flaticon-arrow486' : 'flaticon-play106'" class="fIcon showHideChild"></i>
+				</a>
+				<ul class="displayNone">
+					<li data-ng-class="projectActiveChild1==true ? 'active' : ''">
+						<a ui-sref="projectManagement.active({'lang':lang})">
+							<span>{% trans 'Manage Projects' %}</span>
+						</a>
+					</li>
+					<li data-ng-class="projectActiveChild2==true ? 'active' : ''">
+						<a href="#" data-ng-click="navigateToProject()">
+							<span>{% trans 'Add New Project' %}</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li data-ng-class="cycleManagementActive==true ? 'active' : ''">
+				<a class="containsChild" href="#">
+					<span ui-sref="cycleManagementProject({'lang':lang})" class="flaticon-notepad8">
+						{% trans 'Cycles' %}
+					</span>
+				</a>	
+			</li>
+			
+			<!--<li data-ng-class="activationActive==true ? 'active' : ''">-->
+				<!--<a href="#" ui-sref="cycleManagement({'lang':lang})">-->
+					<!--<span class="flaticon-documents7">{% trans 'Project Activation' %}</span>-->
+				<!--</a>-->
+			<!--</li>-->
+			<li data-ng-class="workforceActive==true ? 'active' : ''">
+				<a href="#" ui-sref="workforceManagement({'lang':lang})">
+					<span class="flaticon-people">Workforce</span>
+				</a>
+			</li>
+			<li data-ng-class="operationActive==true ? 'active' : ''">
+				<a class="containsChild" href="#">
+					<span class="flaticon-silhouette121">{% trans 'Operations' %}</span>
+					<i data-ng-class="operationActive==true ? 'flaticon-arrow486' : 'flaticon-play106'" class="fIcon showHideChild"></i>
+				</a>
+				<ul class="displayNone">
+					<li data-ng-class="operationActiveChild3==true ? 'active' : ''">
+						<a ui-sref="operations.schedule({'lang': lang})">
+							<span>{% trans 'Schedule ' %}</span>
+						</a>
+					</li>
+					<li data-ng-class="operationActiveChild1==true ? 'active' : ''">
+						<a ui-sref="operations.field({'lang': lang})">
+							<span>{% trans 'Field Data Management' %}</span>
+						</a>
+					</li>
+					<li data-ng-class="operationActiveChild2==true ? 'active' : ''">
+						<a ui-sref="operations.time({'lang': lang})">
+							<span>{% trans 'Time Expense' %}</span>
+						</a>
+					</li>
+					<li data-ng-class="operationActiveChild4==true ? 'active' : ''" data-ng-if="isAll || isProgramManager || isAdmin">
+						<a ui-sref="operations.billPrepMerchandiserView({'lang': lang})">
+							<span>{% trans 'Bill Prep' %}</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</nav>
+</div>
